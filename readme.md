@@ -1,5 +1,3 @@
-Here is the updated markdown including the correct endpoint with the API key placeholder:
-
 ### AIS API Wrapper for AISHUB
 
 This repository contains details of an API connection designed to interact with the AISHUB API, a service that provides real-time AIS (Automatic Identification System) data. The API enables fetching, processing, and filtering vessel data from AISHUB, converting it into formats that can be easily used for maritime analytics. The purpose of this repository is to extend AIS data access to educational institutions and researchers.
