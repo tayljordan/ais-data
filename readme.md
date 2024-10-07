@@ -1,39 +1,44 @@
-Here’s the updated markdown for the landing page, including details about the AISHUB API wrapper and the formatted output example:
+Here is the updated markdown including the correct endpoint with the API key placeholder:
 
 ### AIS API Wrapper for AISHUB
 
-This repository contains details an API connection designed to interact with the AISHUB API, a service that provides real-time AIS (Automatic Identification System) data. The API enable fetching, processing, and filtering vessel data from AISHUB, converting it into formats that can be easily used for maritime analytics. The purpose of this site is to extend AIS data to educational institutions and researchers. 
+This repository contains details of an API connection designed to interact with the AISHUB API, a service that provides real-time AIS (Automatic Identification System) data. The API enables fetching, processing, and filtering vessel data from AISHUB, converting it into formats that can be easily used for maritime analytics. The purpose of this repository is to extend AIS data access to educational institutions and researchers.
 
-### Overview of the Scripts
+### Instructions for Using the API in Python
 
-#### `/home/tayljordan/flagship/ais/aishub_api_call.py`
+To use the AIS API wrapper in Python, follow these steps:
 
-This script retrieves AIS data from the AISHUB API in CSV format and saves it locally as `ais_output.csv`. It uses parameters such as `username`, `format`, and `output`, and includes error handling to manage failed requests.
+1. **Install the required libraries**:
+   If not already installed, make sure you have the `requests` library. You can install it using:
+   
+   ```bash
+   pip install requests
+   ```
 
-- **Key Points:**
-  - Sends a GET request to `https://data.aishub.net/ws.php` to fetch vessel data.
-  - Saves the data as `ais_output.csv`.
-  - Logs errors and handles request exceptions.
+2. **Send a POST request to the API**:
+   Use the following Python code to send a request to the API and retrieve vessel data within a specified radius.
 
-#### `/home/tayljordan/flagship/ais/convert_to_feather.py`
+   ```python
+   import requests
 
-This script processes the AIS data from the CSV format, filters it, and converts it to Feather format. It also includes calculations for new vessel positions and integrates vessel type and navigational status.
+   url = "https://www.flagshiptechnologies.com/api/[ENTER API KEY HERE]"
+   data = {
+       "lat": 37.7749,   # Latitude of the center point
+       "lon": -122.4194, # Longitude of the center point
+       "radius": 50      # Radius in kilometers (maximum 100 km)
+   }
 
-- **Key Points:**
-  - Reads the AIS data from the CSV file.
-  - Filters out unwanted vessel types and data.
-  - Applies a `calculate_new_position` function to update vessel coordinates.
-  - Maps vessel types and navigational statuses.
-  - Converts the processed DataFrame to a Feather file (`ais_output.feather`).
+   response = requests.post(url, json=data)
 
-#### `/home/tayljordan/flagship/ais/shippingintel_api_call.py`
+   # Print the response (vessel data in JSON format)
+   if response.status_code == 200:
+       print(response.json())
+   else:
+       print(f"Error: {response.status_code} - {response.text}")
+   ```
 
-This script processes the AIS data stored in Feather format. It calculates a bounding box around a specified latitude and longitude, filters vessels within a given radius, and returns the filtered data in JSON format.
-
-- **Key Points:**
-  - Reads the Feather file (`ais_output.feather`).
-  - Uses a bounding box to find vessels within a specific geographical range.
-  - Returns vessel data in JSON format.
+3. **Interpreting the response**:
+   The response will be in JSON format and will include real-time vessel data such as `MMSI`, `latitude`, `longitude`, `speed`, and more.
 
 ### Sample Output from the API
 
@@ -76,7 +81,7 @@ Here is an example of the API response (shortened and formatted for clarity):
 
 ### Terrestrial Automated Information Systems (AIS) API
 
-#### Endpoint: `/api/ais_temp`
+#### Endpoint: `/api/[ENTER API KEY HERE]`
 
 - **Method**: `POST`
 - **Description**: Retrieves real-time vessel positions within a specified radius, using latitude, longitude, and radius as input parameters.

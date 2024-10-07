@@ -1,6 +1,6 @@
 import requests
 
-url = "https://www.flagshiptechnologies.com/api/g4m8z9p0r1c5a6b7d2e3fql"
+url = "https://www.flagshiptechnologies.com/api/[ENTER API KEY HERE]"
 data = {
     "lat": "38.0",
     "lon": "-122.5",
